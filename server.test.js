@@ -12,16 +12,10 @@ describe('Telephony Webhook Handler', () => {
   });
 
   it('should handle idempotency for duplicate event IDs', async () => {
-    // First request
-    await request(app)
-      .post('/api/webhook/telephony')
-        it('should handle idempotency for duplicate event IDs', async () => {
-    // First request
     await request(app)
       .post('/api/webhook/telephony')
       .send({ MessageSid: 'SM_DUPLICATE', From: '+15551234567', Consented: 'true' });
 
-    // Duplicate request with same MessageSid
     const response = await request(app)
       .post('/api/webhook/telephony')
       .send({ MessageSid: 'SM_DUPLICATE', From: '+15551234567', Consented: 'true' });
@@ -31,14 +25,4 @@ describe('Telephony Webhook Handler', () => {
   });
 });
 
-
-    // Duplicate request with same MessageSid
-    const response = await request(app)
-      .post('/api/webhook/telephony')
-      .send({ MessageSid: 'SM_DUPLICATE', From: '+15551234567', Consented: 'true' });
-
-    expect(response.status).toBe(200);
-    expect(response.text).toContain('<Response>');
-  });
-});
 
